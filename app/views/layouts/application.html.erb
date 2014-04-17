@@ -24,18 +24,8 @@
           <% else %>
           <%= link_to @content.short_title, "/", id: "logo" %>
           <% end %>
-          <nav>
-            <ul class="nav" style="margin-top: .35em; margin-left: 2em;">
-              <div class="input-append">
-                <input id="appendedInputButton" type="text" placeholder="enter address">
-              </div>
-            </ul>
-          </nav>
           <nav class="pull-right">
             <ul class="nav" style="margin-top: .6em; margin-left: 2em;">
-              <div class="header_links">
-                <%= link_to "ACTIVITY", numerical_answers_path %>
-              </div>
               <div class="header_links">
                 <%= link_to "ALL MESSAGES", voice_answers_path %>
               </div>

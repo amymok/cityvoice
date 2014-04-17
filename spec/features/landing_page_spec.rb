@@ -8,8 +8,4 @@ describe 'Landing page' do
     page.should have_content 'To learn more about'
   end
 
-  it 'loads the map markers from json' do
-    visit '/locations.json'
-    page.should have_text zomboland.lat
-  end
 end

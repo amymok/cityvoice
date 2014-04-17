@@ -26,9 +26,14 @@ describe CallsController do
       expect(Call.last.source).to eq('+15745842971')
     end
 
-    it 'redirects to the location selection for the last call' do
+    it 'plays the welcome message' do
       make_request
-      expect(response.body).to redirect_twilio_to(call_location_path(Call.last))
+      expect(response.body).to play_twilio_url(/welcome/)
+    end
+
+    it 'redirects to the consent prompt for the last call' do
+      make_request
+      expect(response.body).to redirect_twilio_to(call_consent_path(Call.last))
     end
   end
 end

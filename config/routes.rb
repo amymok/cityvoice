@@ -2,7 +2,6 @@ Automidnight::Application.routes.draw do
   mount RailsEmailPreview::Engine, at: 'emails' if defined?(RailsEmailPreview::Engine)
 
   resources :voice_answers, only: [:index]
-  resources :numerical_answers, only: [:index]
 
   resource :subscription, controller: :subscription, only: [:create] do
     resource :confirm, module: :subscription, only: [:show]
@@ -11,14 +10,8 @@ Automidnight::Application.routes.draw do
 
   get '/.well-known/status' => 'status#check'
 
-  resources :locations, only: [:index, :show]
-
   resources :calls, only: [:create] do
     scope module: :calls do
-      resource :location, only: [:create]
-      resources :messages, only: [:create] do
-        resource :playback, only: [:create]
-      end
       resource :consent, only: [:create]
       resources :questions, only: [:create] do
         resource :answer, only: [:create]

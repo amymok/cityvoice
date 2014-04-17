@@ -31,65 +31,6 @@ describe 'Listening to messages' do
     end
   end
 
-  context 'on a location page' do
-    before do
-      visit location_path('1313-Mockingbird-Lane')
-    end
-
-    it 'shows the date the call was made' do
-      expect(page).to have_content(create_date.strftime('%Y-%m-%d'))
-    end
-
-    it 'shows the masked number from which the call was made' do
-      expect(page).to have_content('XXX-XX12')
-    end
-
-    it 'displays audio player' do
-      expect(page).to have_selector('audio')
-    end
-
-    it 'has the feedback input audio file' do
-      expect(page).to have_selector(%|source[src='#{answer.voice_file_url}.mp3']|)
-    end
-
-    context 'when the user has not consented to publicly display their number' do
-      let(:call) { create(:call, caller: caller, location: location, consented_to_callback: false) }
-      let!(:answer) { create(:answer, :voice_file, call: call, created_at: create_date) }
-
-      it 'does not display a number' do
-        expect(page).not_to have_content('XXX-XX12')
-      end
-    end
-
-    it 'lets the user subscribe to updates' do
-      fill_in 'subscription_email', with: 'tacos@example.com'
-      click_button 'Subscribe'
-      expect(page).to have_content('You just subscribed')
-    end
-  end
-
-  context 'on the activity page' do
-    before do
-      visit numerical_answers_path
-    end
-
-    it 'shows name of the location' do
-      expect(page).to have_content('1313 Mockingbird Lane')
-    end
-
-    it 'shows the total number of votes' do
-      expect(page).to have_content('1')
-    end
-
-    it 'shows the number of repair votes' do
-      expect(page).to have_content('repair 1')
-    end
-
-    it 'shows the number of remove votes' do
-      expect(page).to have_content('remove 0')
-    end
-  end
-
   context 'on the voice message summary page' do
     before do
       visit voice_answers_path
