@@ -30,7 +30,7 @@
 				<div class="info_box learn content">
                                     <% unless @content.issue.empty? %>
 					<h5 style="display:inline;">Issue:</h5>
-                                        <h3><%= @content.issue %></h3><br>
+                                        <h3><%= raw(@content.issue) %></h3><br>
                                     <% end %>
                                         <p><a><%= raw(@content.learn_text) %></a></p>
 				</div>
@@ -51,7 +51,7 @@
 
 
                   <% unless ["", nil].include?(@content.message_url) %>
-                    <h3 style="margin-top: 1.25em;">Message: <%= @content.message_from %></h3>
+                    <h3 style="margin-top: 1.25em;">Message: <%= raw(@content.message_from) %></h3>
                     <div class="audiojsZ">
                       <audio controls>
                         <source src="<%= @content.message_url %>" type="audio/mpeg">
