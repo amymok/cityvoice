@@ -1,11 +1,10 @@
-CityVoice [![Build Status](https://travis-ci.org/codeforamerica/cityvoice.svg?branch=master)](https://travis-ci.org/codeforamerica/cityvoice) [![Code Climate](https://codeclimate.com/github/codeforamerica/cityvoice.png)](https://codeclimate.com/github/codeforamerica/cityvoice)
+Talk to San Antonio City Council
 =========
-CityVoice is a place-based call-in system to collect community feedback on geographic entities (like vacant properties) using the simple, accessible medium of the telephone.
-
+Talk to San Antonio City Council is a voice message platform for communities to share ideas with their city representatives. The project was forked from CityVoice.
 
 Notice
 ------
-CityVoice's current code base is *early stage software*. The project was a rapid-iteration experiment for South Bend, IN during the 2013 CfA fellowship, and still has a lot of South Bend-specific logic hard-coded in. Generalizing for reuse is an ongoing project.
+Talk to San Antonio City Council's current code base is *early stage software*. It was forked from the CityVoice Application, which was a rapid-iteration experiment for South Bend, IN during the 2013 CfA fellowship, and still has a lot of South Bend-specific logic hard-coded in. Generalizing for reuse is an ongoing project.
 
 For details on the status of CityVoice, check out the ["State of the CityVoice" document](https://github.com/codeforamerica/cityvoice/blob/revamp-for-local-setup/code-base-overview.md#state-of-the-cityvoice), in particular:
 
@@ -40,24 +39,30 @@ Add the Heroku scheduled jobs addon:
 
     $ heroku addons:add scheduler:standard
 
+Set the survey name, the Mapbox id and the secret token:
+
+    $ heroku config:set MAPBOX_MAP_ID=xxxxxxxx.xxxxx
+    $ heroku config:set SECRET_TOKEN=`rake secret`
+
 Next, push the code to Heroku:
 
     $ git push heroku master
+
+Migrate the database:
+
+    $ heroku run rake db:migrate
 
 Load some example data:
 
     $ heroku run rake import:locations
     $ heroku run rake import:questions
 
-Set the survey name, the Mapbox id and the secret token:
 
-    $ heroku config:set MAPBOX_MAP_ID=xxxxxxxx.xxxxx
-    $ heroku config:set SECRET_TOKEN=`rake secret`
 
 
 #### Twilio
 
-CityVoice uses the awesome [Twilio](www.twilio.com) telephony API. To hook up your app to Twilio, go to their site, create an account, and buy a phone number. To configure your number on Twilio's site, go to 'Numbers' -> 'Twilio Numbers' and click on the phone number you want to hook up.
+Talk to SA City Council uses the awesome [Twilio](www.twilio.com) telephony API. To hook up your app to Twilio, go to their site, create an account, and buy a phone number. To configure your number on Twilio's site, go to 'Numbers' -> 'Twilio Numbers' and click on the phone number you want to hook up.
 
 On this page, look at the the 'Voice' section, go to the 'Request URL' box, and put in your deployed application's URL followed by `/calls` (for example: `http://my-cityvoice-app-on-heroku.herokuapp.com/calls`)
 
